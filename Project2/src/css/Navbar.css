@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================= NAVBAR ================= */
+
+.glass-nav {
+  position: fixed;
+  inset-inline: 0;
+  margin: auto;
+  margin-top: 30px;
+  padding: 0 30px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: fit-content;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Liquid Glass Effect */
+.glass-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: url(#wave-distort);
+}
+
+/* UL */
+.glass-nav ul {
+  position: relative;
+  list-style: none;
+  display: flex;
+  height: 55px;              /* ✅ Fixed Height */
+  align-items: center;
+  isolation: isolate;
+  padding: 0 15px;           /* ✅ Vertical padding removed */
+}
+
+/* Indicator Dot */
+.glass-nav ul::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(var(--translate-x, 0))
+    translateY(var(--translate-y, 0)) rotate(var(--rotate-x, 0deg));
+  opacity: 1;
+  z-index: -1;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.4);
+}
+
+/* LI */
+.glass-nav li {
+  height: 100%;              /* ✅ Same height for all */
+  display: flex;
+  align-items: center;
+}
+
+/* A TAG */
+.glass-nav a {
+  height: 100%;              /* ✅ Same height */
+  display: flex;
+  align-items: center;      /* ✅ Perfect vertical center */
+  justify-content: center;
+  padding: 0 22px;          /* ✅ Equal side spacing */
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1;           /* ✅ Text jump fix */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover + Active */
+.glass-nav a:hover,
+.glass-nav a.active {
+  transform: translateY(-3px);
+  color: black;
+}
