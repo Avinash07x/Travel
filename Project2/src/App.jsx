@@ -1,17 +1,26 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Travel from './page/Travel';
+import ContactForm from './components/ContactForm';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-function App() {
 
+
+
+const App = () => {
   return (
     <>
-      <Navbar />
-      <Travel />
-      <Footer />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Travel />} />
+          <Route path="/contact" element={<ContactForm />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

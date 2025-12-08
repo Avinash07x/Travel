@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  cursor: none;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+/* ✅ SVG CURSOR */
+.curzr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.05s linear;
+}

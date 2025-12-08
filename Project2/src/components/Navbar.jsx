@@ -1,15 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/Navbar.css";
+import CursorSVG from "../components/CursorSVG";
 
 const Navbar = () => {
   const navRef = useRef(null);
   const [activeItem, setActiveItem] = useState(0);
+
+  // ✅ Nav items with correct links
+  const navItems = [
+    { name: "Home", link: "/"},
+    { name: "About", link: "#about" },
+    { name: "Events", link: "#Events" },
+    { name: "Directions", link: "#Features" },
+    { name: "Book a Visit ✦", link: "/contact" },
+  ];
 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
 
     const items = nav.querySelectorAll("a");
+    const cursor = document.querySelector(".curzr"); // ✅ SVG cursor
     let anim = null;
 
     const animate = (from, to) => {
@@ -54,11 +65,15 @@ const Navbar = () => {
       nav.classList.add("show-indicator");
     };
 
-    // ✅ Hover listeners
-    const handleEnter = (item) => () => moveToItem(item);
+    // ✅ HOVER + CURSOR SCALE EFFECT
+    const handleEnter = (item) => () => {
+      moveToItem(item);
+      cursor?.classList.add("nav-hover");
+    };
 
     const handleLeave = () => {
       moveToItem(items[activeItem]);
+      cursor?.classList.remove("nav-hover");
     };
 
     items.forEach((item) => {
@@ -66,10 +81,8 @@ const Navbar = () => {
       item.addEventListener("mouseleave", handleLeave);
     });
 
-    // ✅ Move indicator on active change
     moveToItem(items[activeItem]);
 
-    // ✅ CLEANUP (VERY IMPORTANT)
     return () => {
       items.forEach((item) => {
         item.removeEventListener("mouseenter", handleEnter);
@@ -82,16 +95,19 @@ const Navbar = () => {
 
   return (
     <>
+      {/* ✅ CUSTOM CURSOR */}
+      <CursorSVG />
+
       <nav className="glass-nav">
         <ul ref={navRef}>
-          {["Home", "About", "Events", "Directions", "Houses"].map((item, i) => (
+          {navItems.map((item, i) => (
             <li key={i}>
               <a
-                href={`#section${i + 1}`}
+                href={item.link} // ✅ FIXED HREF
                 className={activeItem === i ? "active" : ""}
                 onClick={() => setActiveItem(i)}
               >
-                {item}
+                {item.name}
               </a>
             </li>
           ))}
@@ -100,38 +116,7 @@ const Navbar = () => {
 
       {/* ✅ SVG Filter */}
       <svg style={{ display: "none" }}>
-        <defs>
-          <filter id="wave-distort" x="0%" y="0%" width="100%" height="100%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.0038 0.0038"
-              numOctaves="1"
-              seed="2"
-              result="roughNoise"
-            />
-            <feGaussianBlur
-              in="roughNoise"
-              stdDeviation="8.5"
-              result="softNoise"
-            />
-            <feComposite
-              operator="arithmetic"
-              k1="0"
-              k2="1"
-              k3="2"
-              k4="0"
-              in="softNoise"
-              result="mergedMap"
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="mergedMap"
-              scale="-42"
-              xChannelSelector="G"
-              yChannelSelector="G"
-            />
-          </filter>
-        </defs>
+        {/* your feTurbulence filter here */}
       </svg>
     </>
   );

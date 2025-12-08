@@ -8,15 +8,18 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  cursor: none;
 }
 
 html {
+  cursor: none;
   scroll-behavior: smooth;
 }
 
 /* ================= NAVBAR ================= */
 
 .glass-nav {
+  cursor: none;
   position: fixed;
   inset-inline: 0;
   margin: auto;
