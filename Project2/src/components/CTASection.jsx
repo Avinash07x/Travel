@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import cta from "../assets/book.mp4";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
