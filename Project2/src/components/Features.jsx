@@ -217,13 +217,6 @@ const Features = ({ featuresRef }) => {
               </div>
             ))}
           </div>
-
-          {/* CTA Button */}
-          <div className="text-center mt-20">
-            <Link href="/contact" className="cta-button">
-              Book a Visit ✦
-            </Link>
-          </div>
         </div>
       </section>
     </>
