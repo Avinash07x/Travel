@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Features1 from "../assets/Features1.jpeg";
 import Features2 from "../assets/Features2.jpeg";
 import Features3 from "../assets/Features3.jpeg";
+import { Link } from "react-router-dom";
 
 const featuresData = [
   {
@@ -219,9 +220,9 @@ const Features = ({ featuresRef }) => {
 
           {/* CTA Button */}
           <div className="text-center mt-20">
-            <a href="/contact" className="cta-button">
+            <Link href="/contact" className="cta-button">
               Book a Visit ✦
-            </a>
+            </Link>
           </div>
         </div>
       </section>

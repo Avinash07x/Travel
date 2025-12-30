@@ -125,7 +125,9 @@ const CTASection = () => {
               transition: "all 0.6s ease-out 0.3s",
             }}
           >
-            Book a Visit ✦
+            <Link to="/contact" className="absolute inset-0">
+              Book a Visit ✦
+            </Link>
           </button>
         </div>
 
