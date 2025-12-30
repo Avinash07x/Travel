@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 
-import Img1 from "../assets/About1.jpg";
-import Img2 from "../assets/About2.jpg";
-import Img3 from "../assets/About3.jpg";
-import Img4 from "../assets/About1.jpg";
-import Img5 from "../assets/About2.jpg";
-import Img6 from "../assets/About3.jpg";
+import Img1 from "../assets/Gellery1.jpg";
+import Img2 from "../assets/Gellery2.jpg";
+import Img3 from "../assets/Gellery3.jpg";
+import Img4 from "../assets/Gellery4.jpg";
+import Img5 from "../assets/Gellery5.jpg";
+import Img6 from "../assets/Gellery6.jpg";
+import Img7 from "../assets/Gellery8.jpg";
 
-const images = [Img1, Img2, Img3, Img4, Img5, Img6];
+const images = [Img1, Img2, Img3, Img4, Img5, Img6, Img7];
 
 const Gallery = () => {
   // Slow scroll feel
