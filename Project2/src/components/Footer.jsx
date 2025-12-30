@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { Facebook, Instagram, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -18,29 +20,29 @@ const Footer = () => {
               down and reconnect with the land.
             </p>
 
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-block bg-black text-white px-8 py-3 rounded-sm text-sm font-medium hover:bg-stone-100 transition-colors"
             >
               Book a Visit ✦
-            </a>
+            </Link>
           </div>
 
           {/* RIGHT CONTENT */}
           <div className="space-y-8">
             <div>
-              <p className="text-xs text-[#8b7355] uppercase tracking-widest text-stone-500 mb-3">
+              <p className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Address
               </p>
               <p className="text-lg text-stone-400 hover:text-stone-700 leading-relaxed">
                 Kaleo Retreat <br />
                 Texas Hill Country <br />
-                United States <br />
+                United States
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-[#8b7355]  uppercase tracking-widest text-stone-500 mb-3">
+              <p className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Phone
               </p>
               <a
@@ -52,12 +54,23 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="text-xs text-[#8b7355] uppercase tracking-widest text-stone-500 mb-3">
+              <p className="text-xs uppercase tracking-widest text-stone-500 mb-3">
                 Experience
               </p>
               <p className="text-stone-400 hover:text-stone-700 leading-relaxed">
                 Private stays • Open landscapes • Timeless western calm
               </p>
+            </div>
+
+            <div>
+              <p className="text-xs uppercase tracking-widest text-stone-500 mb-3">
+                Follow Us
+              </p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-stone-500 hover:text-stone-700"><Facebook size={24} /></a>
+                <a href="#" className="text-stone-500 hover:text-stone-700"><Instagram size={24} /></a>
+                <a href="#" className="text-stone-500 hover:text-stone-700"><Youtube size={24} /></a>
+              </div>
             </div>
           </div>
         </div>
