@@ -1,47 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import cta from '../assets/book.mp4';
+import React, { useEffect, useRef, useState } from "react";
+import cta from "../assets/book.mp4";
 
 const CTASection = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [videoScale, setVideoScale] = useState(1);
   const sectionRef = useRef(null);
 
+  // Scroll-based animations
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
-      // Calculate how much of the section is visible
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
-      
-      // Start animation when section enters viewport
-      if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
-        // Calculate progress (0 to 1)
-        const progress = Math.min(
-          Math.max((windowHeight - sectionTop) / (windowHeight * 0.8), 0),
-          1
-        );
+
+      // Check if section is visible
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        const progress = Math.min(Math.max((windowHeight - rect.top) / (windowHeight * 0.8), 0), 1);
         setScrollProgress(progress);
-        
-        // Calculate video scale (1 to 1.3) - zooms in as you scroll
-        const scale = 1 + (progress * 0.3);
-        setVideoScale(scale);
+        setVideoScale(1 + progress * 0.3); // Zoom effect 1 → 1.3
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
-
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const splitText = (text) => {
-    return text.split('').map((char, i) => (
+  // Split text into animated spans
+  const splitText = (text) =>
+    text.split("").map((char, i) => (
       <span
         key={i}
         className="inline-block"
@@ -51,10 +39,9 @@ const CTASection = () => {
           transition: `all 0.4s ease-out ${i * 0.03}s`,
         }}
       >
-        {char === ' ' ? '\u00A0' : char}
+        {char === " " ? "\u00A0" : char}
       </span>
     ));
-  };
 
   return (
     <>
@@ -63,7 +50,7 @@ const CTASection = () => {
           font-family: 'Playfair Display', Georgia, serif;
           font-weight: 300;
           letter-spacing: 0.2em;
-          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 4px 30px rgba(0,0,0,0.5);
         }
 
         .cta-button {
@@ -73,27 +60,22 @@ const CTASection = () => {
           letter-spacing: 0.05em;
           padding: 16px 40px;
           border-radius: 2px;
-          background-color: rgba(255, 255, 255, 0.95);
+          background-color: rgba(255,255,255,0.95);
           color: #2c2c2c;
           border: none;
           cursor: pointer;
           transition: all 0.3s ease;
-          text-transform: none;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
         .cta-button:hover {
           background-color: #ffffff;
           transform: translateY(-2px);
-          box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 6px 30px rgba(0,0,0,0.3);
         }
 
         .video-overlay {
-          background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.3),
-            rgba(0, 0, 0, 0.5)
-          );
+          background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
         }
 
         .zoom-video {
@@ -111,46 +93,39 @@ const CTASection = () => {
         ref={sectionRef}
         className="relative h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Video Background with Zoom Effect */}
+        {/* Background Video */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full  h-full object-cover zoom-video"
-          style={{
-            transform: `scale(${videoScale})`,
-          }}
+          className="absolute inset-0 w-full h-full object-cover zoom-video"
+          style={{ transform: `scale(${videoScale})` }}
         >
-          <source
-            src={cta}
-            type="video/mp4"
-          />
+          <source src={cta} type="video/mp4" />
         </video>
 
-        {/* Dark Overlay */}
+        {/* Overlay */}
         <div className="absolute inset-0 video-overlay"></div>
 
         {/* Content */}
         <div
           className="relative z-10 text-white text-center px-6"
-          style={{
-            opacity: scrollProgress,
-          }}
+          style={{ opacity: scrollProgress }}
         >
           <h3 className="cta-title text-7xl md:text-8xl lg:text-9xl mb-10">
-            {splitText('BREATH')}
+            {splitText("BREATH")}
           </h3>
-          
+
           <button
             className="cta-button"
             style={{
               opacity: scrollProgress,
               transform: `translateY(${(1 - scrollProgress) * 20}px)`,
-              transition: 'all 0.6s ease-out 0.3s',
+              transition: "all 0.6s ease-out 0.3s",
             }}
           >
-            Book a Visit →
+            Book a Visit ✦
           </button>
         </div>
 

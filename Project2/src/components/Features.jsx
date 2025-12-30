@@ -1,9 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Features1 from '../assets/Features1.jpeg';
-import Features2 from '../assets/Features2.jpeg';
-import Features3 from '../assets/Features3.jpeg';
+import React, { useEffect, useRef, useState } from "react";
+import Features1 from "../assets/Features1.jpeg";
+import Features2 from "../assets/Features2.jpeg";
+import Features3 from "../assets/Features3.jpeg";
+
+const featuresData = [
+  {
+    title: "THE LAND",
+    description:
+      "Kaleo begins with the land - the rolling fields, tall mornings, and the quiet rhythm of nature. This is a place where sheep graze under golden light, where slow dawns and the earth reminds us what it means to be rooted.",
+    image: Features1,
+    imageLeft: true,
+  },
+  {
+    title: "THE SPIRIT",
+    description:
+      "There's a spirit here that lives in the details - the warmth of shared meals, the honesty of hard work, the echo of footsteps on wooden floors. It's in the stories passed down, in the breath between tasks, in the way every simple act is honored.",
+    image: Features2,
+    imageLeft: false,
+  },
+  {
+    title: "THE VISION",
+    description:
+      "Our vision is to protect what matters - space, silence, beauty, and belonging. Kaleo is not just a place to visit, but a way of being. We invite those who seek intention, wonder, and a deeper kind of wealth to return to what truly nourishes.",
+    image: Features3,
+    imageLeft: true,
+  },
+];
 
 const Features = ({ featuresRef }) => {
   const [visibleItems, setVisibleItems] = useState([]);
@@ -11,10 +33,10 @@ const Features = ({ featuresRef }) => {
 
   useEffect(() => {
     const observers = [];
-    
+
     itemRefs.current.forEach((item, index) => {
       if (!item) return;
-      
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -25,7 +47,7 @@ const Features = ({ featuresRef }) => {
         },
         { threshold: 0.2 }
       );
-      
+
       observer.observe(item);
       observers.push(observer);
     });
@@ -34,27 +56,6 @@ const Features = ({ featuresRef }) => {
       observers.forEach((observer) => observer.disconnect());
     };
   }, []);
-
-  const featuresData = [
-    {
-      title: "THE LAND",
-      description: "Kaleo begins with the land - the rolling fields, tall mornings, and the quiet rhythm of nature. This is a place where sheep graze under golden light, where slow dawns and the earth reminds us what it means to be rooted.",
-      image: Features1,
-      imageLeft: true
-    },
-    {
-      title: "THE SPIRIT",
-      description: "There's a spirit here that lives in the details - the warmth of shared meals, the honesty of hard work, the echo of footsteps on wooden floors. It's in the stories passed down, in the breath between tasks, in the wayeland every simple act.",
-      image: Features2,
-      imageLeft: false
-    },
-    {
-      title: "THE VISION",
-      description: "Our vision is to protect what matters - space, silence, beauty, and belonging. Kaleo is not just a place to visit, but a way of being. We invite those who seek intention, wonder, and a deeper kind of wealth to return to what truly nourishes.",
-      image: Features3,
-      imageLeft: true
-    }
-  ];
 
   return (
     <>
@@ -151,27 +152,24 @@ const Features = ({ featuresRef }) => {
           .feature-image {
             height: 300px;
           }
-          
           .feature-title {
             font-size: 1.75rem;
           }
         }
       `}</style>
 
-      <section 
+      <section
         ref={featuresRef}
-        id="Features" 
+        id="Features"
         className="py-32 px-6"
-        style={{ backgroundColor: '#e8e1d6' }}
+        style={{ backgroundColor: "#e8e1d6" }}
       >
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <p className="features-heading">
-            THE THINGS THAT STILL MATTER
-          </p>
-          
+          <p className="features-heading">THE THINGS THAT STILL MATTER</p>
           <p className="features-intro">
-            Kaleo invites you to slow down — to move with purpose, to remember what life feels like when it breathes with meaning.
+            Kaleo invites you to slow down — to move with purpose, to remember
+            what life feels like when it breathes with meaning.
           </p>
 
           {/* Feature Items */}
@@ -180,7 +178,9 @@ const Features = ({ featuresRef }) => {
               <div
                 key={index}
                 ref={(el) => (itemRefs.current[index] = el)}
-                className={`feature-item ${visibleItems.includes(index) ? 'visible' : ''} grid md:grid-cols-2 gap-12 items-center`}
+                className={`feature-item ${
+                  visibleItems.includes(index) ? "visible" : ""
+                } grid md:grid-cols-2 gap-12 items-center`}
               >
                 {feature.imageLeft ? (
                   <>
