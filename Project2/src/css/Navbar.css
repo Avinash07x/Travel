@@ -1,63 +1,60 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-body {
+body, html {
   font-family: "Poppins", sans-serif;
   cursor: none;
 }
 
-html {
-  cursor: none;
-  scroll-behavior: smooth;
-}
-
-/* ================= NAVBAR ================= */
+/* ================= NAV ================= */
 
 .glass-nav {
-  cursor: none;
   position: fixed;
-  inset-inline: 0;
-  margin: auto;
-  margin-top: 30px;
-  padding: 0 30px;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.55);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.5);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: fit-content;
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   z-index: 100;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-/* Liquid Glass Effect */
-.glass-nav::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  backdrop-filter: url(#wave-distort);
+/* Toggle (mobile) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #111;
+  margin: 5px 0;
 }
 
 /* UL */
 .glass-nav ul {
-  position: relative;
   list-style: none;
   display: flex;
-  height: 55px;              /* ✅ Fixed Height */
   align-items: center;
-  isolation: isolate;
-  padding: 0 15px;           /* ✅ Vertical padding removed */
+  height: 55px;
+  padding: 0 12px;
+  position: relative;
 }
 
-/* Indicator Dot */
+/* Indicator */
 .glass-nav ul::after {
   content: "";
   position: absolute;
-  left: 0;
   bottom: 6px;
   width: 12px;
   height: 12px;
@@ -65,36 +62,66 @@ html {
   border-radius: 50%;
   transform: translateX(var(--translate-x, 0))
     translateY(var(--translate-y, 0)) rotate(var(--rotate-x, 0deg));
-  opacity: 1;
-  z-index: -1;
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.4);
+  transition: opacity 0.3s;
 }
 
-/* LI */
-.glass-nav li {
-  height: 100%;              /* ✅ Same height for all */
+/* Links */
+.glass-nav a {
+  padding: 0 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
   display: flex;
   align-items: center;
+  height: 100%;
+  transition: transform 0.3s ease;
 }
 
-/* A TAG */
-.glass-nav a {
-  height: 100%;              /* ✅ Same height */
-  display: flex;
-  align-items: center;      /* ✅ Perfect vertical center */
-  justify-content: center;
-  padding: 0 22px;          /* ✅ Equal side spacing */
-  text-decoration: none;
-  color: #1a1a1a;
-  font-weight: bold;
-  font-size: 0.95rem;
-  line-height: 1;           /* ✅ Text jump fix */
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-/* Hover + Active */
 .glass-nav a:hover,
 .glass-nav a.active {
   transform: translateY(-3px);
-  color: black;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  html, body {
+    cursor: default;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .glass-nav {
+    width: 90%;
+  }
+
+  .glass-nav ul {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .glass-nav ul.open {
+    max-height: 400px;
+  }
+
+  .glass-nav ul::after {
+    display: none;
+  }
+
+  .glass-nav li {
+    width: 100%;
+  }
+
+  .glass-nav a {
+    width: 100%;
+    padding: 16px;
+    justify-content: center;
+  }
 }

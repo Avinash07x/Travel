@@ -117,7 +117,7 @@ const CTASection = () => {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover zoom-video"
+          className="absolute inset-0 w-full  h-full object-cover zoom-video"
           style={{
             transform: `scale(${videoScale})`,
           }}

@@ -160,7 +160,7 @@ const Features = ({ featuresRef }) => {
 
       <section 
         ref={featuresRef}
-        id="features" 
+        id="Features" 
         className="py-32 px-6"
         style={{ backgroundColor: '#e8e1d6' }}
       >

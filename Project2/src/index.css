@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  cursor: none !important;
+}
+
 body {
   cursor: none;
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -17,4 +21,15 @@ body {
   z-index: 9999;
   transform: translate3d(0, 0, 0);
   transition: transform 0.05s linear;
+}
+
+@media (max-width: 768px) {
+  * {
+    cursor: auto !important;
+  }
+
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
 }

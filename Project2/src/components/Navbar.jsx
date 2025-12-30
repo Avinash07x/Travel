@@ -1,32 +1,44 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../css/Navbar.css";
 import CursorSVG from "../components/CursorSVG";
 
 const Navbar = () => {
   const navRef = useRef(null);
   const [activeItem, setActiveItem] = useState(0);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-  // ✅ Nav items with correct links
   const navItems = [
-    { name: "Home", link: "/"},
-    { name: "About", link: "#about" },
-    { name: "Events", link: "#Events" },
-    { name: "Directions", link: "#Features" },
-    { name: "Book a Visit ✦", link: "/contact" },
+    { name: "Home", link: "/", type: "route" },
+    { name: "About", link: "#about", type: "hash" },
+    { name: "Events", link: "#events", type: "hash" },
+    { name: "Directions", link: "#features", type: "hash" },
+    { name: "Book a Visit ✦", link: "/contact", type: "route" },
   ];
 
+  // Update active link for routes
   useEffect(() => {
+    const index = navItems.findIndex(
+      (item) => item.type === "route" && item.link === location.pathname
+    );
+    if (index !== -1) setActiveItem(index);
+  }, [location.pathname]);
+
+  // Desktop indicator animation
+  useEffect(() => {
+    if (window.innerWidth < 768) return;
+
     const nav = navRef.current;
     if (!nav) return;
 
     const items = nav.querySelectorAll("a");
-    const cursor = document.querySelector(".curzr"); // ✅ SVG cursor
     let anim = null;
 
     const animate = (from, to) => {
       if (anim) clearInterval(anim);
-
       const start = Date.now();
+
       anim = setInterval(() => {
         const p = Math.min((Date.now() - start) / 500, 1);
         const e = 1 - Math.pow(1 - p, 3);
@@ -41,83 +53,83 @@ const Navbar = () => {
 
         if (p >= 1) {
           clearInterval(anim);
-          anim = null;
           nav.style.setProperty("--translate-y", "0px");
           nav.style.setProperty("--rotate-x", "0deg");
         }
       }, 16);
     };
 
-    const getCurrentPosition = () =>
+    const getX = () =>
       parseFloat(nav.style.getPropertyValue("--translate-x")) || 0;
 
-    const getItemCenter = (item) =>
-      item.getBoundingClientRect().left +
-      item.offsetWidth / 2 -
+    const center = (el) =>
+      el.getBoundingClientRect().left +
+      el.offsetWidth / 2 -
       nav.getBoundingClientRect().left -
       5;
 
-    const moveToItem = (item) => {
-      if (!item) return;
-      const current = getCurrentPosition();
-      const center = getItemCenter(item);
-      animate(current, center);
-      nav.classList.add("show-indicator");
-    };
+    const move = (el) => animate(getX(), center(el));
 
-    // ✅ HOVER + CURSOR SCALE EFFECT
-    const handleEnter = (item) => () => {
-      moveToItem(item);
-      cursor?.classList.add("nav-hover");
-    };
-
-    const handleLeave = () => {
-      moveToItem(items[activeItem]);
-      cursor?.classList.remove("nav-hover");
-    };
-
-    items.forEach((item) => {
-      item.addEventListener("mouseenter", handleEnter(item));
-      item.addEventListener("mouseleave", handleLeave);
+    items.forEach((el, i) => {
+      el.onmouseenter = () => move(el);
+      el.onmouseleave = () => move(items[activeItem]);
     });
 
-    moveToItem(items[activeItem]);
+    move(items[activeItem]);
 
-    return () => {
-      items.forEach((item) => {
-        item.removeEventListener("mouseenter", handleEnter);
-        item.removeEventListener("mouseleave", handleLeave);
-      });
-
-      if (anim) clearInterval(anim);
-    };
+    return () => anim && clearInterval(anim);
   }, [activeItem]);
+
+  // Smooth scroll for hash links
+  const handleHashClick = (e, link, index) => {
+    e.preventDefault();
+    const id = link.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setActiveItem(index);
+      setOpen(false);
+    }
+  };
 
   return (
     <>
-      {/* ✅ CUSTOM CURSOR */}
       <CursorSVG />
 
       <nav className="glass-nav">
-        <ul ref={navRef}>
+        <button className="nav-toggle" onClick={() => setOpen(!open)}>
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <ul ref={navRef} className={open ? "open" : ""}>
           {navItems.map((item, i) => (
-            <li key={i}>
-              <a
-                href={item.link} // ✅ FIXED HREF
-                className={activeItem === i ? "active" : ""}
-                onClick={() => setActiveItem(i)}
-              >
-                {item.name}
-              </a>
+            <li key={item.name}>
+              {item.type === "route" ? (
+                <Link
+                  to={item.link}
+                  className={activeItem === i ? "active" : ""}
+                  onClick={() => {
+                    setActiveItem(i);
+                    setOpen(false);
+                  }}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  href={item.link}
+                  className={activeItem === i ? "active" : ""}
+                  onClick={(e) => handleHashClick(e, item.link, i)}
+                >
+                  {item.name}
+                </a>
+              )}
             </li>
           ))}
         </ul>
       </nav>
-
-      {/* ✅ SVG Filter */}
-      <svg style={{ display: "none" }}>
-        {/* your feTurbulence filter here */}
-      </svg>
     </>
   );
 };

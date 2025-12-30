@@ -10,6 +10,8 @@ import Features from "../components/Features";
 import LastCTA from "../components/LastCTA";
 
 import CursorSVG from "../components/CursorSVG"; // ✅ SVG CURSOR
+import Faqs from "../components/Faqs";
+import Gallery from "../components/Gallery";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -74,6 +76,8 @@ const Travel = () => {
       <CTASection />
       <Events />
       <Features featuresRef={featuresRef} />
+      <Gallery />
+      <Faqs />
       <LastCTA />
     </div>
   );
