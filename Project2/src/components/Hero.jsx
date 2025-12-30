@@ -141,7 +141,7 @@ const Hero = () => {
           </p>
 
           {/* ✅ Discover Button With Video Inside */}
-          <a href="#about" className="hero-discover">
+          <a href="#About" className="hero-discover">
             <video
               autoPlay
               muted
