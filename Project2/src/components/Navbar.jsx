@@ -11,9 +11,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", link: "/", type: "route" },
-    { name: "About", link: "#about", type: "hash" },
-    { name: "Events", link: "#events", type: "hash" },
-    { name: "Directions", link: "#features", type: "hash" },
+    { name: "About", link: "#About", type: "hash" },
+    { name: "Events", link: "#Events", type: "hash" },
+    { name: "Directions", link: "#Features", type: "hash" },
     { name: "Book a Visit ✦", link: "/contact", type: "route" },
   ];
 

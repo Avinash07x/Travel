@@ -175,7 +175,7 @@ const About = ({ aboutRef }) => {
             }
           }
         }}
-        id="about" 
+        id="About" 
         className="py-32 px-6"
         style={{ backgroundColor: '#e8e1d6' }}
       >
